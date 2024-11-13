@@ -1,29 +1,32 @@
-def read_and_modify_file(input_filename, output_filename):
-    try:
-        # Try to open the input file for reading
-        with open(input_filename, 'r') as infile:
-            content = infile.read()
-
-        # Modify the content (for example, convert to uppercase)
-        modified_content = content.upper()
-
-        # Write the modified content to the output file
-        with open(output_filename, 'w') as outfile:
-            outfile.write(modified_content)
-
-        print(f"Successfully read from {input_filename} and wrote to {output_filename}.")
-    except FileNotFoundError:
-        print(f"Error: The file {input_filename} does not exist.")
-    except IOError:
-        print(f"Error: Could not read from {input_filename} or write to {output_filename}.")
+def calculate_discount(price, discount_percent):
+    # Check if the discount is 20% or higher
+    if discount_percent >= 20:
+        # Calculate the discount amount
+        discount_amount = price * (discount_percent / 100)
+        # Calculate the final price after applying the discount
+        final_price = price - discount_amount
+        return final_price
+    else:
+        # If the discount is less than 20%, return the original price
+        return price
 
 def main():
-    # Ask the user for the input and output file names
-    input_filename = input("Enter the name of the file to read from: ")
-    output_filename = input("Enter the name of the file to write to: ")
+    try:
+        # Prompt the user to enter the original price
+        price = float(input("Enter the original price of the item: "))
+        # Prompt the user to enter the discount percentage
+        discount_percent = float(input("Enter the discount percentage: "))
 
-    # Perform the read and write operation with error handling
-    read_and_modify_file(input_filename, output_filename)
+        # Calculate the final price using the calculate_discount function
+        final_price = calculate_discount(price, discount_percent)
+
+        # Print the final price after applying the discount
+        if final_price == price:
+            print(f"No discount applied. The original price is: {price}")
+        else:
+            print(f"The final price after applying the discount is: {final_price}")
+    except ValueError:
+        print("Error: Please enter valid numbers for price and discount percentage.")
 
 # Call the main function
 if __name__ == "__main__":
